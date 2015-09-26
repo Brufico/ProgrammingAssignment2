@@ -10,7 +10,7 @@
 ## similar to the example given, with one exception: In the example  the 
 ## mean m was set to NULL in order to indicate that it was not already cached. 
 ## Here, a boolean indicator InvCached is used instead (InvCached is FALSE if the
-## inverse matrix is not available)
+## inverse matrix is not cached)
 ##
 ## = Description:
 ## a) Function makeCacheMatrix creates the object to pass to cachesolve, as a 
@@ -89,6 +89,7 @@ makeCacheMatrix <- function(x = matrix()) {
         #  Returns: the value of the argument
                 InvCached <<- TRUE
                 MatInv <<- InvM
+                InvM
         }
         
         #definition of local function 'getinverse'

@@ -16,6 +16,9 @@ mat3 <- c(1:4,1:5)
 dim(mat3) <- c(3,3)
 imat3 <- solve(mat3)
 
+mat100 <- matrix(rnorm(10000, 100, 30), 100,100)
+
+
 dummy <- "dummy-string"
 
 # begin test makeCacheMatrix()
@@ -77,4 +80,8 @@ testcache <- function(mx) {
         message("solve 2")
         print(cacheSolve(mobj))
 }
-        
+
+
+#essai avec une grosse matrice
+ob100 <- makeCacheMatrix(mat100)
+cacheSolve(ob100)

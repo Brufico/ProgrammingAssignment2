@@ -13,7 +13,7 @@
 ## inverse matrix is not cached)
 ##
 ## = Description:
-## a) Function makeCacheMatrix creates the object to pass to cachesolve, as a 
+## a) Function 'makeCacheMatrix' creates the object to pass to cachesolve, as a 
 ## list of closures sharing the same parent environment. 
 ## That environment contains three variables:
 ##      Mat = the matrix for which an inverse is to be found
@@ -22,9 +22,11 @@
 ##              inverse is valid, else InvCached is FALSE
 ## makeCacheMatrix returns a list of 5 functions to access these variables.
 ## 
-## b) Function cacheSolve takes the object created with makeCacheMatrix and returns
+## b) Function 'cacheSolve' takes the object created with makeCacheMatrix and returns
 ## the desired inverse matrix. The inverse is only computed (and cached) if it is not
-## already cached.
+## already cached. 
+## (REM: the function writes messages on the screen, as the example.
+## this is only ok for a demo)
 ## 
 ## 
 ## ==========================================================================
@@ -41,14 +43,14 @@ makeCacheMatrix <- function(x = matrix()) {
         ## 
         ## Args: x = an initial value for the matrix
         ## Returns: a list of  functions, which read and manipulate the 
-        ## local environment :
+        ##      local environment :
         ##      set : sets the matrix value
         ##      get : gets the matrix value
         ##      iscached : is the cached inverse valid? TRUE if yes, else FALSE
         ##      setinverse : sets the cached inverse value (does not compute it)
         ##      getinverse : gets the cached inverse
-
-        ## Begin: initializing the local environment variables: 
+        
+        ## Begin: initializing the local variables: 
         ##      Mat = the cached matrix, initially equal to x (NULL if not supplied)
         ##      MatInv = the cached inverse matrix
         ##      InvCached =  a boolean : InvCached is TRUE if the cached 
@@ -71,22 +73,22 @@ makeCacheMatrix <- function(x = matrix()) {
         
         #definition of local function 'get'
         get <- function() {
-        # function 'get' returns the value of the cached matrix
+                # function 'get' returns the value of the cached matrix
                 Mat
         }
         
         #definition of local function 'iscached'
         iscached <- function(){
-        # function 'iscached' returns the value of the local boolean InvCached
+                # function 'iscached' returns the value of the local boolean 'InvCached'
                 InvCached
         }
         
         #definition of local function 'setinverse'
         setinverse <- function(InvM) {
-        # function 'setinverse' sets the value of the cached inverse matrix
-        #  It also sets the value of InvCached to TRUE
-        #  Args: InvM = the value to assign to the inverse
-        #  Returns: the value of the argument
+                # function 'setinverse' sets the value of the cached inverse matrix
+                #  It also sets the value of InvCached to TRUE
+                #  Args: InvM = the value to assign to the inverse
+                #  Returns: the value of the argument
                 InvCached <<- TRUE
                 MatInv <<- InvM
                 InvM
@@ -124,7 +126,7 @@ cacheSolve <- function(x, ...) {
         ## Begin: test if the inverse matrix cached in x is valid
         ##              if yes, return the cached value (and say it)
         ##              else compute the inverse and cache it (and say it)
-
+        
         if(x$iscached()) {
                 message("getting cached data")
                 x$getinverse()
@@ -132,6 +134,6 @@ cacheSolve <- function(x, ...) {
                 message("computing and caching the new inverse matrix")
                 x$setinverse(solve(x$get()))
         }
-                
+        
 }
 
